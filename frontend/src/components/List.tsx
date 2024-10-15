@@ -2,7 +2,7 @@ import {Button, Card} from "react-bootstrap";
 
 const List = () =>{
     return (<>
-            <Card style={{ width: '19rem' }}>
+            <Card className="list-card">
                 <Card.Body>
                     <Card.Title>Card Title</Card.Title>
                     <Card.Text>
