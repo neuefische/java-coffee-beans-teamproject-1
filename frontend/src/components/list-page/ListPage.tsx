@@ -9,7 +9,9 @@ const ListPage = () => {
 
     return (<>
         <Container>
-            List {list}
+            <div className="list-group-header">
+                <h2> List {list} </h2>
+            </div>
             <SearchBar/>
             <ProductsTable/>
         </Container>

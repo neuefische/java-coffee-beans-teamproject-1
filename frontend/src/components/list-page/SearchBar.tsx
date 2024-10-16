@@ -8,13 +8,11 @@ function SearchBar() {
     }
 
     return <>
-        <div>
-            <InputGroup className="mb-3">
-                <FormControl type="text" placeholder="Enter product" aria-label="Product name" value={query}
-                             onChange={(e) => setQuery(e.target.value)}/>
-                <Button variant="primary" onClick={handleAdd}> Add </Button>
-            </InputGroup>
-        </div>
+        <InputGroup className="mb-4 mt-5">
+            <FormControl type="text" placeholder="Enter product" aria-label="Product name" value={query}
+                         onChange={(e) => setQuery(e.target.value)}/>
+            <Button variant="primary" onClick={handleAdd}> Add </Button>
+        </InputGroup>
     </>
 }
 
