@@ -23,11 +23,11 @@ public class ShoppingListController {
 
     @GetMapping("/{id}")
     public ShoppingList getListById(@PathVariable String id){
-        ShoppingList list = shoppingListService.getListById(id);
-        if (list == null) {
+        ShoppingList shoppingList = shoppingListService.getListById(id);
+        if (shoppingList == null) {
             throw new NoSuchElementException("List not found");
         }
-        return list;
+        return shoppingList;
     }
 
     @PostMapping
@@ -37,8 +37,8 @@ public class ShoppingListController {
     }
 
     @PutMapping("/{id}")
-    public ShoppingList updateShoppingList (@PathVariable String id, @RequestBody ShoppingList list){
-        return shoppingListService.updateList(id, list);
+    public ShoppingList updateShoppingList (@PathVariable String id, @RequestBody UpdateShoppingListRequest request){
+        return shoppingListService.updateList(id, request);
     }
 
     @DeleteMapping("/{id}")

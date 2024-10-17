@@ -32,8 +32,8 @@ public class ShoppingListServiceTest {
     public void getListById_shouldReturnListById() {
         //GIVEN
         Product product1 = new Product("1","product 1");
-        ShoppingList list = new ShoppingList("1","List 1", "List 1 description", List.of(product1));
-        when(repository.findById("1")).thenReturn(Optional.of(list));
+        ShoppingList shoppingList = new ShoppingList("1","List 1", "List 1 description", List.of(product1));
+        when(repository.findById("1")).thenReturn(Optional.of(shoppingList));
         //WHEN
         ShoppingList result = service.getListById("1");
         //THEN

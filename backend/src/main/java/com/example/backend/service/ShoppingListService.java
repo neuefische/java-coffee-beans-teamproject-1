@@ -31,10 +31,10 @@ public class ShoppingListService {
         return shoppingListRepository.save(newShoppingList);
     }
 
-    public ShoppingList updateList (String id, ShoppingList list) {
+    public ShoppingList updateList (String id, UpdateShoppingListRequest request) {
         ShoppingList listToUpdate = shoppingListRepository.findById(id).orElse(null);
         if (listToUpdate != null) {
-            ShoppingList newList = new ShoppingList(id, list.title(), list.description(), list.products());
+            ShoppingList newList = new ShoppingList(listToUpdate.id(), request.title(), request.description(), request.products());
             return shoppingListRepository.save(newList);
         }
         else throw new NoSuchElementException ("List not found");
