@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
 import com.example.backend.dto.CreateShoppingListRequest;
+import com.example.backend.dto.UpdateShoppingListRequest;
 import com.example.backend.model.ShoppingList;
 import com.example.backend.service.ShoppingListService;
 import lombok.AllArgsConstructor;
