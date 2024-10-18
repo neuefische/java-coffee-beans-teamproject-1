@@ -1,5 +1,6 @@
 package com.example.backend.service;
 
+import com.example.backend.dto.UpdateShoppingListRequest;
 import com.example.backend.model.Product;
 import com.example.backend.model.ShoppingList;
 import com.example.backend.repository.ShoppingListRepository;
@@ -40,5 +41,42 @@ public class ShoppingListServiceTest {
         assertNotNull(result);
         assertEquals("1", result.id());
         assertEquals("List 1", result.title());
+    }
+
+    @Test
+    public void createList_shouldReturnListById() {
+        //GIVEN
+        Product product1 = new Product("1","product 1");
+        ShoppingList shoppingList = new ShoppingList("1","List 1", "List 1 description", List.of(product1));
+        when(idService.randomId()).thenReturn("1");
+        //WHEN
+        service.createShoppingList(shoppingList);
+        //THEN
+        verify(repository, times(1)).save(shoppingList);
+    }
+
+    @Test
+    public void updateList_shouldUpdateListById() {
+        //GIVEN
+        Product product1 = new Product("1","product 1");
+        ShoppingList shoppingList = new ShoppingList("1","List 1", "List 1 description", List.of(product1));
+        when(repository.findById("1")).thenReturn(Optional.of(shoppingList));
+        UpdateShoppingListRequest updatedShoppingList = new UpdateShoppingListRequest("Updated List 1", "List 1 description", List.of(product1));
+        //WHEN
+        service.updateList("1", updatedShoppingList);
+        //THEN
+        verify(repository, times(1)).save(new ShoppingList(shoppingList.id(), updatedShoppingList.title(), updatedShoppingList.description(), updatedShoppingList.products()));
+    }
+
+    @Test
+    public void deleteListById_shouldDeleteListById() {
+        //GIVEN
+        Product product1 = new Product("1","product 1");
+        ShoppingList shoppingList = new ShoppingList("1","List 1", "List 1 description", List.of(product1));
+        when(repository.findById("1")).thenReturn(Optional.of(shoppingList));
+        //WHEN
+        service.deleteShoppingList("1");
+        //THEN
+        verify(repository, times(1)).deleteById(shoppingList.id());
     }
 }
