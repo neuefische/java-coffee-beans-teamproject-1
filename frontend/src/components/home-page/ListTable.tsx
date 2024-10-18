@@ -1,9 +1,8 @@
 import List from "./List.tsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {ShoppingList} from "../../types/ShoppingList.ts"
 
-
-type ShoppingList = {id: string; name: string;}
 
 const ListTable = () => {
 
