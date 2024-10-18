@@ -7,6 +7,7 @@ import com.example.backend.repository.ShoppingListRepository;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -44,6 +45,16 @@ public class ShoppingListServiceTest {
     }
 
     @Test
+    public void getListById_shouldReturnNullIfNotFound() {
+        // GIVEN
+        when(repository.findById("2")).thenReturn(Optional.empty());
+        // WHEN
+        ShoppingList result = service.getListById("2");
+        // THEN
+        assertNull(result);
+    }
+
+    @Test
     public void createList_shouldReturnListById() {
         //GIVEN
         Product product1 = new Product("1","product 1");
@@ -53,6 +64,16 @@ public class ShoppingListServiceTest {
         service.createShoppingList(shoppingList);
         //THEN
         verify(repository, times(1)).save(shoppingList);
+    }
+
+    @Test
+    public void updateList_shouldThrowExceptionIfNotFound() {
+        // GIVEN
+        UpdateShoppingListRequest updatedRequest = new UpdateShoppingListRequest("Updated List", "Updated description", List.of());
+        when(repository.findById("2")).thenReturn(Optional.empty());
+        // WHEN & THEN
+        assertThrows(NoSuchElementException.class, () -> service.updateList("2", updatedRequest));
+        verify(repository, never()).save(any(ShoppingList.class));
     }
 
     @Test
@@ -78,5 +99,14 @@ public class ShoppingListServiceTest {
         service.deleteShoppingList("1");
         //THEN
         verify(repository, times(1)).deleteById(shoppingList.id());
+    }
+
+    @Test
+    public void deleteListById_shouldThrowExceptionIfNotFound() {
+        // GIVEN
+        when(repository.findById("2")).thenReturn(Optional.empty());
+        // WHEN & THEN
+        assertThrows(NoSuchElementException.class, () -> service.deleteShoppingList("2"));
+        verify(repository, never()).deleteById(anyString());
     }
 }

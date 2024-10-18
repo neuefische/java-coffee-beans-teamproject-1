@@ -32,8 +32,7 @@ public class ShoppingListController {
 
     @PostMapping
     public ShoppingList save(@RequestBody CreateShoppingListRequest request){
-        ShoppingList newShoppingList = shoppingListService.createShoppingList(request.toModel());
-        return newShoppingList;
+        return shoppingListService.createShoppingList(request.toModel());
     }
 
     @PutMapping("/{id}")

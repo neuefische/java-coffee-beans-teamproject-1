@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class ShoppingListService {
-    private final IdService Idservice;
+    private final IdService idservice;
     private final ShoppingListRepository shoppingListRepository;
 
     public List<ShoppingList> getAllLists() {
@@ -25,7 +25,7 @@ public class ShoppingListService {
     }
 
     public ShoppingList createShoppingList(ShoppingList shoppingList) {
-        String shoppingListId = Idservice.randomId();
+        String shoppingListId = idservice.randomId();
 
         ShoppingList newShoppingList = new ShoppingList(shoppingListId, shoppingList.title(), shoppingList.description(), shoppingList.products());
         return shoppingListRepository.save(newShoppingList);
