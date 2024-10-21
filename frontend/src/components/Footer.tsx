@@ -11,8 +11,8 @@ const Footer = () => {
                         <Col md={4}>
                             <h5>Links</h5>
                             <ul className="list-unstyled">
-                                <li><a href="#home" className="text-white">Home</a></li>
-                                <li><a href="#about" className="text-white">About</a></li>
+                                <li><a href="/" className="text-white">Home</a></li>
+                                <li><a href="/about" className="text-white">About</a></li>
                             </ul>
                         </Col>
                         <Col md={4}>
