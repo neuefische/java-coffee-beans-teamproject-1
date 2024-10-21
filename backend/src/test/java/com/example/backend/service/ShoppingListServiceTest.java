@@ -33,7 +33,7 @@ public class ShoppingListServiceTest {
     @Test
     public void getListById_shouldReturnListById() {
         //GIVEN
-        Product product1 = new Product("1","product 1");
+        Product product1 = new Product("product 1",1);
         ShoppingList shoppingList = new ShoppingList("1","List 1", "List 1 description", List.of(product1));
         when(repository.findById("1")).thenReturn(Optional.of(shoppingList));
         //WHEN
@@ -57,7 +57,7 @@ public class ShoppingListServiceTest {
     @Test
     public void createList_shouldReturnListById() {
         //GIVEN
-        Product product1 = new Product("1","product 1");
+        Product product1 = new Product("product 1",1);
         ShoppingList shoppingList = new ShoppingList("1","List 1", "List 1 description", List.of(product1));
         when(idService.randomId()).thenReturn("1");
         //WHEN
@@ -79,7 +79,7 @@ public class ShoppingListServiceTest {
     @Test
     public void updateList_shouldUpdateListById() {
         //GIVEN
-        Product product1 = new Product("1","product 1");
+        Product product1 = new Product("product 1",1);
         ShoppingList shoppingList = new ShoppingList("1","List 1", "List 1 description", List.of(product1));
         when(repository.findById("1")).thenReturn(Optional.of(shoppingList));
         UpdateShoppingListRequest updatedShoppingList = new UpdateShoppingListRequest("Updated List 1", "List 1 description", List.of(product1));
@@ -92,7 +92,7 @@ public class ShoppingListServiceTest {
     @Test
     public void deleteListById_shouldDeleteListById() {
         //GIVEN
-        Product product1 = new Product("1","product 1");
+        Product product1 = new Product("product 1",1);
         ShoppingList shoppingList = new ShoppingList("1","List 1", "List 1 description", List.of(product1));
         when(repository.findById("1")).thenReturn(Optional.of(shoppingList));
         //WHEN
