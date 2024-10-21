@@ -1,20 +1,21 @@
 import {FormEvent, useState} from "react";
 import {Button, Form, Modal} from "react-bootstrap";
-import {List} from "../../types/List.ts"
+import {newListType} from "../../types/List.ts"
 import axios, {AxiosError} from "axios";
 
 type ListModalProps = {
     show: boolean,
     handleClose: () => void,
+    setHasChanged: (value: (prev: boolean) => boolean) => void;
 }
 
-const ListModal = ({show, handleClose}: ListModalProps) => {
+const ListModal = ({show, handleClose, setHasChanged}: ListModalProps) => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        const newList: List = {
+        const newList: newListType = {
             title: title,
             description: description,
             products: []
@@ -22,11 +23,11 @@ const ListModal = ({show, handleClose}: ListModalProps) => {
 
         axios.post("/api/lists", newList)
             .then(() => {
+                setTitle("");
+                setDescription("");
+                setHasChanged((state: boolean) => !state);
             })
             .catch((error: AxiosError) => console.log(error));
-
-        setTitle("");
-        setDescription("");
 
         handleClose();
     }
