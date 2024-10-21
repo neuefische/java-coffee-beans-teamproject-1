@@ -10,9 +10,11 @@ type ListTypes = {
 
 const List = ({ list, setHasChanged }: ListTypes) => {
     const navigate = useNavigate();
+
     const handleEdit = (list: ListType) => {
-        navigate("/list", { state: { list } });
+        navigate(`/list/${list.id}`, { state: { list } });
     };
+
     const handleDelete = async () => {
         try {
             await axios.delete(`/api/lists/${list.id}`);

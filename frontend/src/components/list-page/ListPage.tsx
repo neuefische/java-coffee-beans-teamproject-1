@@ -10,7 +10,7 @@ const ListPage = () => {
     return (<>
         <Container>
             <div className="list-group-header">
-                <h2> List {list} </h2>
+                <h2>  {list.title} </h2>
             </div>
             <SearchBar/>
             <ProductsTable/>
