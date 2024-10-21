@@ -40,8 +40,8 @@ class ShoppingListControllerTest {
     @Test
     @DirtiesContext
     void getAllLists_shouldReturnAllLists() throws Exception {
-        Product product1 = new Product("1", "tomato");
-        Product product2 = new Product("2", "cheese");
+        Product product1 = new Product("tomato", 1);
+        Product product2 = new Product("cheese", 10);
         List<Product> products = List.of(product1, product2);
         ShoppingList shoppingList = new ShoppingList("1", "new 1", "make smth", products);
         when(shoppingListRepository.findAll()).thenReturn(Arrays.asList(shoppingList));
@@ -57,12 +57,12 @@ class ShoppingListControllerTest {
                                         "description": "make smth",
                                         "products": [
                                             {
-                                                "id": "1",
-                                                "name": "tomato"
+                                                "name": "tomato",
+                                                "quantity": 1
                                             },
                                             {
-                                                "id": "2",
-                                                "name": "cheese"
+                                                "name": "cheese",
+                                                "quantity": 10
                                             }
                                         ]
                                     }
@@ -74,8 +74,8 @@ class ShoppingListControllerTest {
     @Test
     @DirtiesContext
     void getListById_shouldReturnListById() throws Exception {
-        Product product1 = new Product("1", "tomato");
-        Product product2 = new Product("2", "cheese");
+        Product product1 = new Product("tomato", 1);
+        Product product2 = new Product("cheese", 10);
         List<Product> products = List.of(product1, product2);
         ShoppingList shoppingList = new ShoppingList("1", "List 1", "Description of List 1", products);
         when(shoppingListRepository.findById("1")).thenReturn(Optional.of(shoppingList));
@@ -97,29 +97,29 @@ class ShoppingListControllerTest {
     @Test
     @DirtiesContext
     void save_shouldSaveList() throws Exception {
-        Product product1 = new Product("1", "tomato");
-        Product product2 = new Product("2", "cheese");
+        Product product1 = new Product("tomato", 1);
+        Product product2 = new Product("cheese", 10);
         List<Product> products = List.of(product1, product2);
         ShoppingList shoppingList = new ShoppingList("2", "List 2", "Description of List 2", products);
         when(idService.randomId()).thenReturn("2");
         when(shoppingListRepository.save(shoppingList)).thenReturn(shoppingList);
         mockMvc.perform(MockMvcRequestBuilders.post("/api/lists")
                         .content("""
-                        {
-                            "title": "List 2",
-                            "description": "Description of List 2",
-                            "products": [
-                                {
-                                    "id": "1",
-                                    "name": "tomato"
-                                },
-                                {
-                                    "id": "2",
-                                    "name": "cheese"
-                                }
-                            ]
-                        }
-                    """)
+                                    {
+                                        "title": "List 2",
+                                        "description": "Description of List 2",
+                                        "products": [
+                                            {
+                                                            "name": "tomato",
+                                                            "quantity": 1
+                                                        },
+                                                        {
+                                                            "name": "cheese",
+                                                            "quantity": 10
+                                                        }
+                                        ]
+                                    }
+                                """)
                         .contentType("application/json"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value("2"))
@@ -129,49 +129,49 @@ class ShoppingListControllerTest {
     @Test
     @DirtiesContext
     void updateShoppingList_shouldUpdateShoppingList() throws Exception {
-        Product product1 = new Product("1", "tomato");
-        Product product2 = new Product("2", "cheese");
+        Product product1 = new Product("tomato", 1);
+        Product product2 = new Product("cheese", 10);
         List<Product> products = List.of(product1, product2);
         ShoppingList shoppingList = new ShoppingList("1", "List 1", "Description of List 1", products);
 
-        Product product3 = new Product("3", "milk");
+        Product product3 = new Product("milk", 3);
         List<Product> updatedProductList = List.of(product1, product3);
         ShoppingList updatedShoppingList = new ShoppingList("1", "Updated List 1", "Description of updated List 1", updatedProductList);
         when(shoppingListRepository.findById("1")).thenReturn(Optional.of(shoppingList));
         when(shoppingListRepository.save(updatedShoppingList)).thenReturn(updatedShoppingList);
         mockMvc.perform(MockMvcRequestBuilders.put("/api/lists/1")
                         .content("""
-                        {
-                            "title": "Updated List 1",
-                            "description": "Description of updated List 1",
-                            "products": [
-                                {
-                                    "id": "1",
-                                    "name": "tomato"
-                                },
-                                {
-                                    "id": "3",
-                                    "name": "milk"
-                                }
-                            ]
-                        }
-                    """)
+                                    {
+                                        "title": "Updated List 1",
+                                        "description": "Description of updated List 1",
+                                        "products": [
+                                            {
+                                                            "name": "tomato",
+                                                            "quantity": 1
+                                                        },
+                                                        {
+                                                            "name": "milk",
+                                                            "quantity": 3
+                                                        }
+                                        ]
+                                    }
+                                """)
                         .contentType("application/json"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value("1"))
                 .andExpect(jsonPath("$.title").value("Updated List 1"))
                 .andExpect(jsonPath("$.description").value("Description of updated List 1"))
-                .andExpect(jsonPath("$.products[0].id").value("1"))
                 .andExpect(jsonPath("$.products[0].name").value("tomato"))
-                .andExpect(jsonPath("$.products[1].id").value("3"))
+                .andExpect(jsonPath("$.products[0].quantity").value(1))
+                .andExpect(jsonPath("$.products[1].quantity").value(3))
                 .andExpect(jsonPath("$.products[1].name").value("milk"));
     }
 
     @Test
     @DirtiesContext
     void deleteShoppingList_shouldDeleteList() throws Exception {
-        Product product1 = new Product("1", "tomato");
-        Product product2 = new Product("2", "cheese");
+        Product product1 = new Product("tomato", 1);
+        Product product2 = new Product("cheese", 10);
         List<Product> products = List.of(product1, product2);
         ShoppingList shoppingList = new ShoppingList("1", "List to Delete", "Description to Delete", products);
 
