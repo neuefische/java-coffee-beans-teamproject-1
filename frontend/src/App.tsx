@@ -7,6 +7,7 @@ import ListPage from "./components/list-page/ListPage.tsx";
 import About from "./components/about-page/About.tsx";
 import axios, {AxiosError} from "axios";
 import {useEffect, useState} from "react";
+import {Button} from "react-bootstrap";
 
 function App() {
     const [username, setUsername] = useState<string | undefined>();
@@ -56,7 +57,10 @@ function App() {
                         </Routes>
                         <Footer/>
                     </div>) :
-                <button onClick={login}>Login with GitHub</button>
+                <div className="logout-btn">
+                    <h3 className="mb-4">Please log in to see your Shopping list.</h3>
+                    <Button onClick={login}>Login with GitHub</Button>
+                </div>
             }
         </>
     )

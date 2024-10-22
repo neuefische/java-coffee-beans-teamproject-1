@@ -51,7 +51,20 @@
     color: #28a745;
 }
 
+.logout-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
 .header-container {
     display: flex;
     justify-content: space-between;
+    width: 100%;
+}
+
+.header-container__nav {
+    display: flex;
 }
