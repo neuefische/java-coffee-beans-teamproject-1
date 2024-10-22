@@ -21,7 +21,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable)
+                .csrf(csrf -> csrf.disable())  // This protection is only applicable for server side rendered apps
                 .authorizeHttpRequests(a -> a
                         .requestMatchers("/api/**").authenticated()
                         .anyRequest().permitAll()
