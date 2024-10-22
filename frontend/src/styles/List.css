@@ -50,3 +50,8 @@
     left: -20px;
     color: #28a745;
 }
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+}

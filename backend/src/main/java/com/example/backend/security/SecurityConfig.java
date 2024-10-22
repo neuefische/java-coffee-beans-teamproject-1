@@ -29,8 +29,9 @@ public class SecurityConfig {
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .exceptionHandling(e -> e
                         .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
-                .oauth2Login(o -> o.defaultSuccessUrl(appUrl));
+                .oauth2Login(o -> o.defaultSuccessUrl(appUrl))
+                .logout(l -> l.logoutUrl("/api/auth/logout")
+                        .logoutSuccessHandler((request, response, authentication) -> response.setStatus(HttpStatus.OK.value())));
         return http.build();
     }
-
 }
