@@ -35,8 +35,8 @@ function App() {
                 setUsername("");
                 navigate("/");
             })
-            .catch(error => {
-                console.log("Error while logging out: " + error)
+            .catch((error: AxiosError) => {
+                console.log(error)
             })
     }
 
