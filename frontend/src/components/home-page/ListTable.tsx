@@ -1,17 +1,23 @@
 import List from "./List.tsx";
+import {ListType} from "../../types/List.ts"
+import {Row} from "react-bootstrap";
 
-const listsArr = ["list 1", "list 2", "list 3", "list 4", "list 5", "list 6", "list 7", "list 8"];
+type ListTableProps = {
+    lists: ListType[];
+    setHasChanged: (value: (prev: boolean) => boolean) => void;
+}
+const ListTable = ({lists, setHasChanged}: ListTableProps) => {
 
-
-const ListTable = () => {
-    const lists = listsArr.map((list: string) => {
-        return <List key={list} list={list} />
+    const listItems = lists.map((list: ListType) => {
+        return <List key={list.id} list={list} setHasChanged={setHasChanged} />
     })
 
     return (<>
-        <div className="list-table-container mt-5">
-            {lists}
-        </div>
+        <Row>
+            <div className="list-table-container mt-5">
+                {listItems}
+            </div>
+        </Row>
     </>)
 }
 export default ListTable;

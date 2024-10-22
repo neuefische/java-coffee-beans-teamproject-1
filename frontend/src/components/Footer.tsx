@@ -1,4 +1,6 @@
 import {Col, Container, Row} from "react-bootstrap";
+import {Link} from "react-router-dom";
+import Nav from "react-bootstrap/Nav";
 
 const Footer = () => {
     return (<>
@@ -11,8 +13,8 @@ const Footer = () => {
                         <Col md={4}>
                             <h5>Links</h5>
                             <ul className="list-unstyled">
-                                <li><a href="#home" className="text-white">Home</a></li>
-                                <li><a href="#about" className="text-white">About</a></li>
+                                <li><Nav.Link as={Link} to="/" className="text-white">Home </Nav.Link></li>
+                                <li><Nav.Link as={Link} to="/about" className="text-white">About</Nav.Link></li>
                             </ul>
                         </Col>
                         <Col md={4}>

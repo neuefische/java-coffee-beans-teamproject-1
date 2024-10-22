@@ -1,22 +1,52 @@
-.list-group-header{
+.list-group-header {
     display: flex;
     justify-content: space-between;
     margin-top: 25px;
 }
 
-.list-button-container{
+.list-button-container {
     display: flex;
     justify-content: space-between;
 }
 
-.list-table-container{
+.list-table-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    margin-top: 3px;
+    gap: 16px;
 }
 
-.list-card{
+.list-card {
     width: 19rem;
     margin-bottom: 10px;
+}
+
+.about-header {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.about-section {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.about-values {
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 20px;
+}
+
+.about-values li {
+    padding: 5px 0;
+    position: relative;
+}
+
+.about-values li:before {
+    content: "✔️";
+    position: absolute;
+    left: -20px;
+    color: #28a745;
 }

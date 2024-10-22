@@ -4,6 +4,7 @@ import Footer from "./components/Footer.tsx";
 import {Route, Routes} from "react-router-dom";
 import Home from "./components/home-page/Home.tsx";
 import ListPage from "./components/list-page/ListPage.tsx";
+import About from "./components/about-page/About.tsx";
 import axios, {AxiosError} from "axios";
 import {useEffect, useState} from "react";
 
@@ -40,6 +41,7 @@ function App() {
                         <Routes>
                             <Route path="/" element={<Home/>}/>
                             <Route path="/list" element={<ListPage/>}/>
+                            <Route path="/about" element={<About/>} />
                         </Routes>
                         <Footer/>
                     </div>) :
