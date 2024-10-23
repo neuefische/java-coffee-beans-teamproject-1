@@ -1,7 +1,7 @@
 .list-group-header {
     display: flex;
-    justify-content: space-between;
     margin-top: 25px;
+    flex-direction: column;
 }
 
 .list-button-container {
