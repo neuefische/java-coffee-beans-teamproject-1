@@ -1,7 +1,11 @@
 .list-group-header {
     display: flex;
-    justify-content: space-between;
     margin-top: 25px;
+    justify-content: space-between;
+}
+
+.list-group-header__description {
+    flex-direction: column;
 }
 
 .list-button-container {
@@ -67,4 +71,12 @@
 
 .header-container__nav {
     display: flex;
+}
+
+.header-container__nav .navbar-nav {
+    align-items: center;
+}
+
+.logo {
+    width: 40px;
 }

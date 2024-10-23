@@ -80,7 +80,7 @@ const ListPage = () => {
 
     return (
         <Container>
-            <div className="list-group-header">
+            <div className="list-group-header list-group-header__description ">
                 <h2>{title}</h2>
                 <p>{description}</p>
             </div>
