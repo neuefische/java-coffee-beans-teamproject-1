@@ -9,7 +9,7 @@ const Footer = () => {
                     <Row>
                         <Col md={4}>
                             <h5>About Us</h5>
-                            <p>Some information about the website or company.</p></Col>
+                            <p>We are Maria, Sama and Dipali, dedicated to crafting innovative web solutions for a better online experience.</p></Col>
                         <Col md={4}>
                             <h5>Links</h5>
                             <ul className="list-unstyled">
