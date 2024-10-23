@@ -1,20 +1,28 @@
 package com.example.backend.controller;
 
+import com.example.backend.model.AppUser;
+import com.example.backend.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Optional;
+
+import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oidcLogin;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 class AuthControllerTest {
+
+    @MockBean
+    UserRepository userRepository;
 
     @Autowired
     MockMvc mockMvc;
@@ -31,15 +39,26 @@ class AuthControllerTest {
 
     @Test
     void getMe_whenLoggedIn_returnUsername() throws Exception {
+        // GIVEN
+        var appUser = AppUser.builder()
+                .id("John")
+                .username("John")
+                .avatarUrl("http://example.com/avatar.jpg")
+                .role("USER")
+                .build();
+        when(userRepository.findById("John")).thenReturn(Optional.of(appUser));
 
         // WHEN
         mockMvc.perform(get("/api/auth/me")
-                        .with(oidcLogin().userInfoToken(token -> token
-                                .claim("login", "John"))))
+                        .with(oidcLogin().idToken(token -> token
+                                .subject("John")))) // Setting "John" as the subject of the ID token
                 // THEN
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().string("John"));
+                .andExpect(jsonPath("$.id").value("John"))
+                .andExpect(jsonPath("$.username").value("John"))
+                .andExpect(jsonPath("$.avatarUrl").value("http://example.com/avatar.jpg"))
+                .andExpect(jsonPath("$.role").value("USER"));
     }
 
     @Test
