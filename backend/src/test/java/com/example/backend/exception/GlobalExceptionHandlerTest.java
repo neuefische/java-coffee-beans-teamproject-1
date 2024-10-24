@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(GlobalExceptionHandler.class)
-public class GlobalExceptionHandlerTest {
+class GlobalExceptionHandlerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -27,7 +27,7 @@ public class GlobalExceptionHandlerTest {
     }
 
     @Test
-    public void testHandleUnexpectedExceptions() throws Exception {
+    void testHandleUnexpectedExceptions() throws Exception {
         mockMvc.perform(get("/some-endpoint-that-throws-exception"))
                 .andExpect(status().isInternalServerError())
                 .andExpect(jsonPath("$.message").value(GlobalExceptionHandler.INTERNAL_SERVER_ERROR_MESSAGE));
