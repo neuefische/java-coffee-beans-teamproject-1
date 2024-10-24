@@ -45,13 +45,14 @@ public class ShoppingListServiceTest {
     }
 
     @Test
-    public void getListById_shouldReturnNullIfNotFound() {
+    public void getListById_shouldThrowNoSuchElementExceptionIfNotFound() {
         // GIVEN
         when(repository.findById("2")).thenReturn(Optional.empty());
-        // WHEN
-        ShoppingList result = service.getListById("2");
-        // THEN
-        assertNull(result);
+
+        // WHEN & THEN
+        assertThrows(NoSuchElementException.class, () -> {
+            service.getListById("2");
+        });
     }
 
     @Test

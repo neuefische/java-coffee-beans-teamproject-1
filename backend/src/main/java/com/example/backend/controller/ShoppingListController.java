@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @RestController
 @AllArgsConstructor
@@ -22,12 +21,8 @@ public class ShoppingListController {
     }
 
     @GetMapping("/{id}")
-    public ShoppingList getListById(@PathVariable String id){
-        ShoppingList shoppingList = shoppingListService.getListById(id);
-        if (shoppingList == null) {
-            throw new NoSuchElementException("List not found");
-        }
-        return shoppingList;
+    public ShoppingList getListById(@PathVariable String id) {
+        return shoppingListService.getListById(id);
     }
 
     @PostMapping

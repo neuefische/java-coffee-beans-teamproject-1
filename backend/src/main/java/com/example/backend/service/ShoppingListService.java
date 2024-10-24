@@ -21,7 +21,8 @@ public class ShoppingListService {
     }
 
     public ShoppingList getListById(String id) {
-        return shoppingListRepository.findById(id).orElse(null);
+
+        return shoppingListRepository.findById(id).orElseThrow(() -> new NoSuchElementException("List not found"));
     }
 
     public ShoppingList createShoppingList(ShoppingList shoppingList) {
