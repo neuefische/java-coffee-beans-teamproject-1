@@ -13,6 +13,8 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class ShoppingListService {
+    private static final String LIST_NOT_FOUND_MESSAGE = "List not found";
+
     private final IdService idservice;
     private final ShoppingListRepository shoppingListRepository;
 
@@ -21,7 +23,8 @@ public class ShoppingListService {
     }
 
     public ShoppingList getListById(String id) {
-        return shoppingListRepository.findById(id).orElse(null);
+
+        return shoppingListRepository.findById(id).orElseThrow(() -> new NoSuchElementException(LIST_NOT_FOUND_MESSAGE));
     }
 
     public ShoppingList createShoppingList(ShoppingList shoppingList) {
@@ -37,7 +40,7 @@ public class ShoppingListService {
             ShoppingList newList = new ShoppingList(listToUpdate.id(), request.title(), request.description(), request.products());
             return shoppingListRepository.save(newList);
         }
-        else throw new NoSuchElementException ("List not found");
+        else throw new NoSuchElementException (LIST_NOT_FOUND_MESSAGE);
     }
 
     public void deleteShoppingList(String id) {
@@ -46,7 +49,7 @@ public class ShoppingListService {
         if(shoppingList.isPresent()) {
             shoppingListRepository.deleteById(id);
         } else {
-            throw new NoSuchElementException ("List not found");
+            throw new NoSuchElementException (LIST_NOT_FOUND_MESSAGE);
         }
     }
 }

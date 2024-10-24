@@ -15,9 +15,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.mockito.Mockito.verify;
@@ -46,7 +44,7 @@ class ShoppingListControllerTest {
         Product product2 = new Product("cheese", 10);
         List<Product> products = List.of(product1, product2);
         ShoppingList shoppingList = new ShoppingList("1", "new 1", "make smth", products);
-        when(shoppingListRepository.findAll()).thenReturn(Arrays.asList(shoppingList));
+        when(shoppingListRepository.findAll()).thenReturn(List.of(shoppingList));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/lists"))
                 .andExpect(status().isOk())
@@ -90,7 +88,8 @@ class ShoppingListControllerTest {
     @Test
     @DirtiesContext
     void getListById_shouldReturnNotFoundIfListDoesNotExist() throws Exception {
-        when(shoppingListService.getListById("2")).thenThrow(new NoSuchElementException("List not found"));
+        when(shoppingListRepository.findById("2")).thenReturn(Optional.empty());
+
         mockMvc.perform(MockMvcRequestBuilders.get("/api/lists/2"))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.message").value("List not found"));
